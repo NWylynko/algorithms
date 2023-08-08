@@ -83,6 +83,8 @@ def doSort(n, sortType, arrayType):
             DSAsorts.quickSort(A)
         else:
             print("Unsupported sort algorithm")
+        
+        print("Sorted Array: ", A)
 
         for i in range(n-2):
             if (A[i] > A[i+1]):

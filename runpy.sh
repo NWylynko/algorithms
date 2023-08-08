@@ -30,13 +30,14 @@
 # - r = randomly ordered (actually: randomly swapped around)
 # - n = ascending with 10% randomly swapped (ie: nearly sorted)
 #
-#sorts="br sr qr mr bn sn qn mn ba sa qa ma"
-#sorts="ba br bn bd"
-sorts="br"
+# sorts="br sr qr mr bn sn qn mn ba sa qa ma"
+# sorts="ba br bn bd"
+# sorts="br"
+sorts="ba bd br bn ia id ir in sa sd sr sn"
 
 # The "max" variable contains the maximum n that is passed to SortsTestHarness
-#max=8192
-max=1024
+# max=8192
+max=20
 
 
 ########################### DO NOT CHANGE BELOW THIS LINE ##################
@@ -58,14 +59,14 @@ runEm > $tempFile
 # PP: Following line is a fix for MacOSX sh not understanding the -n flag
 # Unfortunately, it is incompatible with Linux
 # Perhaps a proper solution is to do the full path /bin/echo ?
-#echo "plot\c"
-echo -n "plot"
-echo $sorts | awk '{for(i=1;i<NF;i++)printf"\"-\" using 2:3 t \"%s\" w l,",$i}'
-echo $sorts | awk '{i=NF;            printf"\"-\" using 2:3 t \"%s\" w l",$i}'
-echo ""
+# echo "plot\c"
+# echo -n "plot"
+# echo $sorts | awk '{for(i=1;i<NF;i++)printf"\"-\" using 2:3 t \"%s\" w l,",$i}'
+# echo $sorts | awk '{i=NF;            printf"\"-\" using 2:3 t \"%s\" w l",$i}'
+# echo ""
 
 for s in $sorts 
 do
     grep "$s" $tempFile
-    echo "e"
+    # echo "e"
 done
