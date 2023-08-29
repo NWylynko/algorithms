@@ -1,4 +1,4 @@
-import numpy as np
+from LinkedList import DSALinkedList
 
 # a standard queue
 # like people at a food stand
@@ -8,9 +8,8 @@ import numpy as np
 
 
 class DSAShufflingQueue():
-    def __init__(self, maxSize: int = 1000, debug: bool = False):
-        self._queue = np.empty(maxSize, dtype=object)
-        self._maxSize = maxSize
+    def __init__(self, debug: bool = False):
+        self._queue = DSALinkedList()
         self._count = 0
         self._debug = debug
 
@@ -20,10 +19,7 @@ class DSAShufflingQueue():
         if self._debug:
             print("enqueue: ", value)
 
-        if self.isFull():
-            raise IndexError("Queue is full")
-
-        self._queue[self._count] = value
+        self._queue.insertLast(value)
         self._count += 1
 
     def add(self, value):
@@ -36,14 +32,12 @@ class DSAShufflingQueue():
         # take the first item from the queue
 
         if self._debug:
-            print("dequeue: ", self._queue[0])
+            print("dequeue: ", self._queue.peekFirst())
 
         if self.isEmpty():
             raise IndexError("Queue is empty")
 
-        value = self._queue[0]
-        for i in range(1, self._count):
-            self._queue[i - 1] = self._queue[i]
+        value = self._queue.removeFirst()
         self._count -= 1
         return value
 
@@ -57,12 +51,12 @@ class DSAShufflingQueue():
         # look at the first item, but leave it in the queue
 
         if self._debug:
-            print("peek: ", self._queue[0])
+            print("peek: ", self._queue.peekFirst())
 
         if self.isEmpty():
             raise IndexError("Queue is empty")
 
-        return self._queue[0]
+        return self._queue.peekFirst()
 
     def front(self):
         return self.peek()
@@ -75,14 +69,6 @@ class DSAShufflingQueue():
 
         return self._count == 0
 
-    def isFull(self):
-        # check if the queue is full
-
-        if self._debug:
-            print("isFull: ", self._count == self._maxSize)
-
-        return self._count == self._maxSize
-
     def count(self):
         # number of elements in the queue
 
@@ -94,18 +80,15 @@ class DSAShufflingQueue():
 
 # test the shuffling queue
 if __name__ == "__main__":
-    queue = DSAShufflingQueue(5)
+    queue = DSAShufflingQueue()
     assert queue.isEmpty() == True
-    assert queue.isFull() == False
     queue.enqueue(1)
     queue.enqueue(2)
     queue.enqueue(3)
     assert queue.count() == 3
-    assert queue.isFull() == False
     assert queue.isEmpty() == False
     assert queue.dequeue() == 1
     assert queue.dequeue() == 2
     assert queue.dequeue() == 3
     assert queue.isEmpty() == True
-    assert queue.isFull() == False
     print("Queue test passed")
